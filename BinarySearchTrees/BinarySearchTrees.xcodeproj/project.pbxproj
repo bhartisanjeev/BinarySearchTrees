@@ -418,6 +418,7 @@
 				EDBABB061ABAAC3A009A51B4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EDBABB071ABAAC3A009A51B4 /* Build configuration list for PBXNativeTarget "BinarySearchTreesTests" */ = {
 			isa = XCConfigurationList;
@@ -426,6 +427,7 @@
 				EDBABB091ABAAC3A009A51B4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -11,6 +11,8 @@
 @interface ViewController ()
 
 - (BSTNode *)createNodeWithData:(NSInteger)data ;
+- (void)animateLabel:(UILabel *)label ;
+
 
 @end
 
@@ -19,18 +21,30 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self insertNodeToTree:root withData:100];
-    [self insertNodeToTree:root withData:90];
-    [self insertNodeToTree:root withData:80];
-    [self insertNodeToTree:root withData:95];
-    [self insertNodeToTree:root withData:200];
-    [self insertNodeToTree:root withData:150];
-    [self insertNodeToTree:root withData:300];
-    [self insertNodeToTree:root withData:400];
-    [self insertNodeToTree:root withData:500];
+    [self animateLabel:self.lblBSTAnimation];
     
-    //In Order Traversal
-    [self traversalInTree:root];
+    treeElements = [[NSMutableArray alloc] init];
+    
+    NSArray *elementsList = [[NSArray alloc] initWithObjects:@"7",@"1",@"0",@"3",@"2",@"5",@"4",@"6",@"9",@"8",@"10", nil];
+    
+    for (int index = 0; index < elementsList.count; index++)
+        [self insertNodeToTree:root withData:[[elementsList objectAtIndex:index] integerValue]];
+    
+    //Pre Order Traversal
+    [self preOrderTraversalInTree:root];
+    self.lblPreOrder.text = [treeElements componentsJoinedByString:@" , "];
+    [treeElements removeAllObjects];
+    
+    //In-Order Traversal
+    [self inOrderTraversalInTree:root];
+    self.lblInOrder.text = [treeElements componentsJoinedByString:@" , "];
+    [treeElements removeAllObjects];
+    
+    //Post-Order traversal
+    [self  postOrderTraversalInTree:root];
+    self.lblPostOrder.text = [treeElements componentsJoinedByString:@" , "];
+    [treeElements removeAllObjects];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -67,15 +81,42 @@
     
 }
 
-// go through all elements in tree
-- (void)traversalInTree:(BSTNode *)node {
+// Pre-Order Traversal
+- (void)preOrderTraversalInTree:(BSTNode *)node {
+
+    if (node == NULL) {
+        return ;
+    }
+    NSLog(@"%ld",(long)node.data);
+    [treeElements addObject:[NSString stringWithFormat:@"%ld",(long)node.data]];
+    [self preOrderTraversalInTree:node.left];
+    [self preOrderTraversalInTree:node.right];
+}
+
+// In-Order Traversal of BST
+- (void)inOrderTraversalInTree:(BSTNode *)node {
+    if (node == NULL) {
+        return ;
+    }
+    [self inOrderTraversalInTree:node.left];
+    NSLog(@"%ld",(long)node.data);
+    [treeElements addObject:[NSString stringWithFormat:@"%ld",(long)node.data]];
+    [self inOrderTraversalInTree:node.right];
+    
+}
+
+// Post-Order Traversal
+- (void)postOrderTraversalInTree:(BSTNode *)node {
     
     if (node == NULL) {
         return ;
     }
-    [self traversalInTree:node.left];
+    [self postOrderTraversalInTree:node.left];
+    [self postOrderTraversalInTree:node.right];
+    
     NSLog(@"%ld",(long)node.data);
-    [self traversalInTree:node.right];
+    [treeElements addObject:[NSString stringWithFormat:@"%ld",(long)node.data]];
+
 }
 
 #pragma mark - 
@@ -91,5 +132,29 @@
     return _node ;
 }
 
+- (void)animateLabel:(UILabel *)label {
+    
+    [UIView animateWithDuration:1.5f animations:^{
+        
+        [self scaleLabel:label WithScale:1.6f andScaleY:1.6f andAlpha:1.0f];
+        
+    } completion:^(BOOL finished) {
+        
+        [UIView animateWithDuration:1.5f animations:^{
+            
+            [self scaleLabel:label WithScale:1.0f andScaleY:1.0f andAlpha:0.2f];
+            
+        } completion:^(BOOL finished) {
+            
+            [self animateLabel:label];
+            
+        }];
+    }];
+}
 
+- (void)scaleLabel:(UILabel *)label WithScale:(float)scaleX andScaleY:(float)scaleY andAlpha:(float)alphaValue{
+    
+    label.transform = CGAffineTransformMakeScale(scaleX, scaleY) ;
+    label.alpha = alphaValue ;
+}
 @end

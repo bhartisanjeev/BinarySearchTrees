@@ -12,8 +12,13 @@
 @interface ViewController : UIViewController {
     
     BSTNode *root ;
-    
+    NSMutableArray *treeElements ;
 }
+
+@property (nonatomic, weak) IBOutlet UILabel *lblPreOrder ;
+@property (nonatomic, weak) IBOutlet UILabel *lblInOrder ;
+@property (nonatomic, weak) IBOutlet UILabel *lblPostOrder ;
+@property (nonatomic, weak) IBOutlet UILabel *lblBSTAnimation ;
 
 //insert elements into tree
 - (BSTNode *)insertNodeToTree:(BSTNode *)node withData:(NSInteger)data ;
@@ -23,8 +28,15 @@
 
 // go through all elements in tree
 
+// Pre-Order Traversal
+- (void)preOrderTraversalInTree:(BSTNode *)node ;
+
 // In-Order Traversal of BST
-- (void)traversalInTree:(BSTNode *)node ;
+- (void)inOrderTraversalInTree:(BSTNode *)node ;
+
+// Post-Order Traversal
+- (void)postOrderTraversalInTree:(BSTNode *)node ;
+
 
 
 @end
