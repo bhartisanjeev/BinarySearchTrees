@@ -23,11 +23,6 @@
 //insert elements into tree
 - (BSTNode *)insertNodeToTree:(BSTNode *)node withData:(NSInteger)data ;
 
-// search a specific node in tree
-- (void)searchNodeInBinaryTree ;
-
-// go through all elements in tree
-
 // Pre-Order Traversal
 - (void)preOrderTraversalInTree:(BSTNode *)node ;
 
@@ -37,6 +32,9 @@
 // Post-Order Traversal
 - (void)postOrderTraversalInTree:(BSTNode *)node ;
 
+// search a specific node in tree
+- (void)searchNode:(BSTNode *)node InBinaryTreeWithData:(NSInteger)data ;
+    
 
 
 @end

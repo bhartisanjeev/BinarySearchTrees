@@ -13,7 +13,6 @@
 - (BSTNode *)createNodeWithData:(NSInteger)data ;
 - (void)animateLabel:(UILabel *)label ;
 
-
 @end
 
 @implementation ViewController
@@ -44,6 +43,9 @@
     [self  postOrderTraversalInTree:root];
     self.lblPostOrder.text = [treeElements componentsJoinedByString:@" , "];
     [treeElements removeAllObjects];
+    
+    //searching element in tree
+    [self searchNode:root InBinaryTreeWithData:81];
     
 }
 
@@ -157,4 +159,26 @@
     label.transform = CGAffineTransformMakeScale(scaleX, scaleY) ;
     label.alpha = alphaValue ;
 }
+
+// search a specific node in tree
+- (void)searchNode:(BSTNode *)node InBinaryTreeWithData:(NSInteger)data {
+    
+    if (node == NULL) {
+        
+        NSLog(@"There is no Node with data : %ld",(long)data);
+        
+    } else if (data > node.data) {
+        
+        [self searchNode:node.right InBinaryTreeWithData:data];
+        
+    } else if (data < node.data) {
+        
+        [self searchNode:node.left InBinaryTreeWithData:data];
+        
+    } else {
+        
+        NSLog(@"Node present with data : %ld",(long)node.data);
+    }
+}
+
 @end
