@@ -13,6 +13,8 @@
     
     BSTNode *root ;
     NSMutableArray *treeElements ;
+    NSInteger   left  ;
+    NSInteger   right ;
 }
 
 @property (nonatomic, weak) IBOutlet UILabel *lblPreOrder ;
@@ -33,8 +35,13 @@
 - (void)postOrderTraversalInTree:(BSTNode *)node ;
 
 // search a specific node in tree
-- (void)searchNode:(BSTNode *)node InBinaryTreeWithData:(NSInteger)data ;
+- (BSTNode *)searchNode:(BSTNode *)node InBinaryTreeWithData:(NSInteger)data ;
     
+// deletion of node from BST
+- (void)deleteNodeFromTree:(BSTNode *)node ;
+
+// find height of BST
+- (NSInteger)findHeightOfBST:(BSTNode *)node ;
 
 
 @end
