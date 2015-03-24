@@ -13,7 +13,6 @@
 - (BSTNode *)createNodeWithData:(NSInteger)data ;
 - (void)animateLabel:(UILabel *)label ;
 
-
 @end
 
 @implementation ViewController
@@ -30,6 +29,9 @@
     for (int index = 0; index < elementsList.count; index++)
         [self insertNodeToTree:root withData:[[elementsList objectAtIndex:index] integerValue]];
     
+    // height of tree
+    NSLog(@"height of tree = %d",[self findHeightOfBST:root]);
+
     //Pre Order Traversal
     [self preOrderTraversalInTree:root];
     self.lblPreOrder.text = [treeElements componentsJoinedByString:@" , "];
@@ -45,6 +47,11 @@
     self.lblPostOrder.text = [treeElements componentsJoinedByString:@" , "];
     [treeElements removeAllObjects];
     
+    //searching element in tree
+    [self searchNode:root InBinaryTreeWithData:81];
+    
+    // height of tree
+    NSLog(@"height of tree = %d",[self findHeightOfBST:root]);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -72,7 +79,6 @@
     } else {
         node.left = [self insertNodeToTree:node.left withData:data];
     }
- 
     return node ;
 }
 
@@ -157,4 +163,49 @@
     label.transform = CGAffineTransformMakeScale(scaleX, scaleY) ;
     label.alpha = alphaValue ;
 }
+
+// search a specific node in tree
+- (BSTNode *)searchNode:(BSTNode *)node InBinaryTreeWithData:(NSInteger)data {
+    
+    if (node == NULL) {
+        
+        NSLog(@"There is no Node with data : %ld",(long)data);
+        return nil ;
+        
+    } else if (data > node.data) {
+        
+        [self searchNode:node.right InBinaryTreeWithData:data];
+        
+    } else if (data < node.data) {
+        
+        [self searchNode:node.left InBinaryTreeWithData:data];
+        
+    } else {
+        
+        NSLog(@"Node present with data : %ld",(long)node.data);
+        return node ;
+        
+    }
+    return node ;
+}
+
+// deletion of node from BST
+- (void)deleteNodeFromTree:(BSTNode *)node {
+    
+}
+
+// find height of BST
+- (NSInteger)findHeightOfBST:(BSTNode *)node {
+    
+    if (node == NULL) {
+        return -1 ;
+    }
+    
+    left  = [self findHeightOfBST:node.left];
+    right = [self findHeightOfBST:node.right];
+    
+    return MAX(left, right) + 1 ;
+}
+
+
 @end
